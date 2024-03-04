@@ -16,7 +16,7 @@ import { createInvoice } from '@/app/lib/actions';
 export default function Form({ customers }: { customers: CustomerField[] }) {
   const initialState = { message: null, errors: {} };
   const [state, dispatch] = useFormState(createInvoice, initialState);
- console.log(state)
+//  console.log(state)
   return (
     <form action={dispatch}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
@@ -97,6 +97,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
                   type="radio"
                   value="pending"
                   className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                  aria-describedby='customer-error'
                 />
                 <label
                   htmlFor="pending"
@@ -112,6 +113,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
                   type="radio"
                   value="paid"
                   className="h-4 w-4 cursor-pointer border-gray-300 bg-gray-100 text-gray-600 focus:ring-2"
+                  aria-describedby='customer-error'
                 />
                 <label
                   htmlFor="paid"
@@ -130,6 +132,9 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
             </p>
           ))}
       </div>
+      <p className="mt-2 text-sm text-red-500">
+              {state.message}
+            </p>
         </fieldset>
       </div>
       <div className="mt-6 flex justify-end gap-4">
@@ -141,9 +146,6 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         </Link>
         <Button type="submit">Create Invoice</Button>
       </div>
-      <p className="mt-2 text-sm text-red-500">
-              {state.message}
-            </p>
     </form>
   );
 }
